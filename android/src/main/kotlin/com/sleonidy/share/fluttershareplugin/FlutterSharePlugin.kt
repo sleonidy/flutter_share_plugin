@@ -10,16 +10,12 @@ class FlutterSharePlugin: MethodCallHandler {
   companion object {
     @JvmStatic
     fun registerWith(registrar: Registrar) {
-      val channel = MethodChannel(registrar.messenger(), "flutter_share_plugin")
+      val channel = MethodChannel(registrar.messenger(), "com.github.sleonidy/share")
       channel.setMethodCallHandler(FlutterSharePlugin())
     }
   }
 
   override fun onMethodCall(call: MethodCall, result: Result) {
-    if (call.method == "getPlatformVersion") {
-      result.success("Android ${android.os.Build.VERSION.RELEASE}")
-    } else {
-      result.notImplemented()
-    }
+
   }
 }

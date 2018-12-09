@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
   package="com.sleonidy.share.fluttershareplugin">
   <application>
-        <activity android:name="io.flutter.plugins.share.ShareReceiverActivityWorker"
+        <activity android:name=".ShareReceiverActivityWorker"
           android:theme="@style/Theme.Transparent">
             <intent-filter>
                 <action android:name="android.intent.action.SEND"/>
