@@ -4,9 +4,8 @@
 // found in the LICENSE file.
 
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter_share_plugin/share.dart';
 import 'package:flutter_share_plugin/receive_share_state.dart';
+import 'package:flutter_share_plugin/share.dart';
 
 void main() {
   runApp(DemoApp());
@@ -56,7 +55,7 @@ class DemoAppState extends ReceiveShareState<DemoApp> {
                 Builder(
                   builder: (BuildContext context) {
                     return RaisedButton(
-                      child: Text('Share'),
+                      child: Text('Share Text'),
                       onPressed: _text.isEmpty
                           ? null
                           : () {
@@ -84,12 +83,12 @@ class DemoAppState extends ReceiveShareState<DemoApp> {
                 RaisedButton(
                   child: const Text('Toggle share receiving'),
                   onPressed: () {
-                          if (!shareReceiveEnabled) {
-                            enableShareReceiving();
-                          } else {
-                            disableShareReceiving();
-                          }
-                        },
+                    if (!shareReceiveEnabled) {
+                      enableShareReceiving();
+                    } else {
+                      disableShareReceiving();
+                    }
+                  },
                 ),
                 const Padding(padding: const EdgeInsets.only(top: 24.0)),
                 Text(_shared),
@@ -98,5 +97,4 @@ class DemoAppState extends ReceiveShareState<DemoApp> {
           )),
     );
   }
-
 }
