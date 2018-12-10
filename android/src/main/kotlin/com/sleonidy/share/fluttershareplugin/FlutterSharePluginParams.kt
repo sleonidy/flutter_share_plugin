@@ -2,7 +2,7 @@ package com.sleonidy.share.fluttershareplugin
 
 data class FlutterSharePluginParams(
     val isMultiple: Boolean,
-    val type: SharePlugin.ShareType,
+    val type: FlutterSharePlugin.ShareType,
     val title: String,
     val text: String,
     val path: String
