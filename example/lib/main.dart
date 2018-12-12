@@ -3,9 +3,12 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_share_plugin/receive_share_state.dart';
 import 'package:flutter_share_plugin/share.dart';
+import 'package:path_provider/path_provider.dart';
 
 void main() {
   runApp(DemoApp());
@@ -54,28 +57,44 @@ class DemoAppState extends ReceiveShareState<DemoApp> {
                 const Padding(padding: const EdgeInsets.only(top: 24.0)),
                 Builder(
                   builder: (BuildContext context) {
-                    return RaisedButton(
-                      child: Text('Share Text'),
-                      onPressed: _text.isEmpty
-                          ? null
-                          : () {
-                              // A builder is used to retrieve the context immediately
-                              // surrounding the RaisedButton.
-                              //
-                              // The context's `findRenderObject` returns the first
-                              // RenderObject in its descendent tree when it's not
-                              // a RenderObjectWidget. The RaisedButton's RenderObject
-                              // has its position and size after it's built.
-                              final RenderBox box = context.findRenderObject();
-                              Share.plainText(text: _text).share(
-                                  sharePositionOrigin:
-                                      box.localToGlobal(Offset.zero) &
-                                          box.size);
+                    return Column(
+                      children: <Widget>[
+                        RaisedButton(
+                          child: Text("Share File"),
+                          onPressed: ()async{
+                            final tempDir = await getTemporaryDirectory();
+                            final file = File(tempDir.path+"/temp.txt");
+                            file.writeAsStringSync("dasdsa");
+                            await Share.file(path: file.path,text: "Text",title:"Subject").share();
+                          },
+                        ),
+                        RaisedButton(
+                          child: Text("Share Image"), onPressed: () {},
+                        ),
+                        RaisedButton(
+                          child: Text('Share Text'),
+                          onPressed: _text.isEmpty
+                              ? null
+                              : () {
+                                  // A builder is used to retrieve the context immediately
+                                  // surrounding the RaisedButton.
+                                  //
+                                  // The context's `findRenderObject` returns the first
+                                  // RenderObject in its descendent tree when it's not
+                                  // a RenderObjectWidget. The RaisedButton's RenderObject
+                                  // has its position and size after it's built.
+                                  final RenderBox box = context.findRenderObject();
+                                  Share.plainText(text: _text).share(
+                                      sharePositionOrigin:
+                                          box.localToGlobal(Offset.zero) &
+                                              box.size);
 //                              Share.image(path: "content://0@media/external/images/media/2129", mimeType: ShareType.TYPE_IMAGE).share(
 //                                  sharePositionOrigin:
 //                                      box.localToGlobal(Offset.zero) &
 //                                          box.size);
-                            },
+                                },
+                        ),
+                      ],
                     );
                   },
                 ),
