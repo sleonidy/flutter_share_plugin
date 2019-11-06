@@ -13,7 +13,7 @@ import io.flutter.app.FlutterActivity
  */
 class ShareReceiverActivityWorker : FlutterActivity() {
 
-    override fun onCreate(savedInstanceState: Bundle) {
+    override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         // Get intent, action and MIME type
@@ -29,9 +29,9 @@ class ShareReceiverActivityWorker : FlutterActivity() {
 
     private fun passShareToMainActivity(intent: Intent) {
         val launchIntent = packageManager.getLaunchIntentForPackage(packageName)
-        launchIntent.action = intent.action
-        launchIntent.type = intent.type
-        launchIntent.putExtras(intent)
+        launchIntent?.action = intent.action
+        launchIntent?.type = intent.type
+        launchIntent?.putExtras(intent)
 
         startActivity(launchIntent)
         finish()

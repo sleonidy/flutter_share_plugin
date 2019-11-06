@@ -35,7 +35,7 @@ class FlutterShareReceiverActivity : FlutterActivity() {
     private val backlog = ArrayList<Intent>()
     private var ignoring = false
 
-    override fun onCreate(savedInstanceState: Bundle) {
+    override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         if (!inited) {
@@ -91,9 +91,9 @@ class FlutterShareReceiverActivity : FlutterActivity() {
                 if (eventSink != null) {
                     val params = HashMap<String, String>()
                     params[TYPE] = type
-                    params[TEXT] = sharedText
+                    params[TEXT] = sharedText ?: ""
                     if (!TextUtils.isEmpty(sharedTitle)) {
-                        params[TITLE] = sharedTitle
+                        params[TITLE] = sharedTitle ?: ""
                     }
                     eventSink!!.success(params)
                 } else if (!ignoring && !backlog.contains(intent)) {
@@ -107,12 +107,12 @@ class FlutterShareReceiverActivity : FlutterActivity() {
                 if (eventSink != null) {
                     val params = HashMap<String, String>()
                     params[TYPE] = type
-                    params[PATH] = sharedUri.toString()
+                    params[PATH] = sharedUri?.toString() ?: ""
                     if (!TextUtils.isEmpty(sharedTitle)) {
-                        params[TITLE] = sharedTitle
+                        params[TITLE] = sharedTitle ?: ""
                     }
                     if (!intent.hasExtra(Intent.EXTRA_TEXT)) {
-                        params[TEXT] = intent.getStringExtra(Intent.EXTRA_TEXT)
+                        params[TEXT] = intent.getStringExtra(Intent.EXTRA_TEXT) ?: ""
                     }
                     eventSink!!.success(params)
                 } else if (!ignoring && !backlog.contains(intent)) {

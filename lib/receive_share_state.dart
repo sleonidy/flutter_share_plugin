@@ -11,11 +11,10 @@ import 'share.dart';
 /// State<T extends StatefulWidget> extension class
 /// to manage receiveShare stream subscription
 abstract class ReceiveShareState<T extends StatefulWidget> extends State<T> {
-
   static const stream = const EventChannel('plugins.flutter.io/receiveshare');
 
   bool shareReceiveEnabled = false;
-  StreamSubscription _shareReceiveSubscription = null;
+  StreamSubscription _shareReceiveSubscription;
 
   void enableShareReceiving() {
     if (_shareReceiveSubscription == null) {
@@ -41,5 +40,4 @@ abstract class ReceiveShareState<T extends StatefulWidget> extends State<T> {
   }
 
   void receiveShare(Share shared);
-
 }
