@@ -171,7 +171,7 @@ class Share {
 
   bool get isMultiple => this.shares.isNotEmpty;
 
-  Future<void> share({Rect sharePositionOrigin}) {
+  Future<void> share({Rect sharePositionOrigin}) async {
     final Map<String, dynamic> params = <String, dynamic>{
       TYPE: mimeType.toString(),
       IS_MULTIPLE: isMultiple
@@ -214,8 +214,7 @@ class Share {
     }
 
 
-
-    return channel.invokeMethod('share', params);
+    return await channel.invokeMethod('share', params);
   }
 
   @override
