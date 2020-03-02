@@ -6,12 +6,13 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+
 import 'share.dart';
 
 /// State<T extends StatefulWidget> extension class
 /// to manage receiveShare stream subscription
 abstract class ReceiveShareState<T extends StatefulWidget> extends State<T> {
-  static const stream = const EventChannel('plugins.flutter.io/receiveshare');
+  static const stream = EventChannel('plugins.flutter.io/receiveshare');
 
   bool shareReceiveEnabled = false;
   StreamSubscription _shareReceiveSubscription;

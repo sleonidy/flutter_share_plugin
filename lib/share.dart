@@ -10,13 +10,12 @@ import 'package:flutter/services.dart';
 import 'package:meta/meta.dart' show visibleForTesting;
 
 class ShareType {
-
-  static const ShareType TYPE_PLAIN_TEXT = const ShareType._internal("text/plain");
-  static const ShareType TYPE_IMAGE = const ShareType._internal("image/*");
-  static const ShareType TYPE_FILE = const ShareType._internal("*/*");
+  static const ShareType TYPE_PLAIN_TEXT = ShareType._internal("text/plain");
+  static const ShareType TYPE_IMAGE = ShareType._internal("image/*");
+  static const ShareType TYPE_FILE = ShareType._internal("*/*");
 
   static List<ShareType> values() {
-    List values = new List<ShareType>();
+    List values = List<ShareType>();
     values.add(TYPE_PLAIN_TEXT);
     values.add(TYPE_IMAGE);
     values.add(TYPE_FILE);
@@ -106,12 +105,13 @@ class Share {
     assert(received.containsKey(TYPE));
     ShareType type = ShareType.fromMimeType(received[TYPE]);
     if (received.containsKey(IS_MULTIPLE)) {
-      List<Share> receivedShares = new List();
-      for (var i = 0; i < received.length-2; i++) {
+      List<Share> receivedShares = List();
+      for (var i = 0; i < received.length - 2; i++) {
         receivedShares.add(Share.file(path: received["$i"]));
       }
       if (received.containsKey(TITLE)) {
-        return Share.multiple(mimeType: type, title: received[TITLE], shares: receivedShares);
+        return Share.multiple(
+            mimeType: type, title: received[TITLE], shares: receivedShares);
       } else {
         return Share.multiple(mimeType: type, shares: receivedShares);
       }
@@ -160,16 +160,16 @@ class Share {
         }
         break;
     }
-
   }
 
   /// [MethodChannel] used to communicate with the platform side.
   @visibleForTesting
-  static const MethodChannel channel = const MethodChannel('com.github.sleonidy/share');
+  static const MethodChannel channel = MethodChannel(
+      'com.github.sleonidy/share');
 
   bool get isNull => this.mimeType == null;
 
-  bool get isMultiple => this.shares.length > 0;
+  bool get isMultiple => this.shares.isNotEmpty;
 
   Future<void> share({Rect sharePositionOrigin}) {
     final Map<String, dynamic> params = <String, dynamic>{
