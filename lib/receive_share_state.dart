@@ -15,7 +15,7 @@ abstract class ReceiveShareState<T extends StatefulWidget> extends State<T> {
   static const stream = EventChannel('plugins.flutter.io/receiveshare');
 
   bool shareReceiveEnabled = false;
-  StreamSubscription _shareReceiveSubscription;
+  StreamSubscription? _shareReceiveSubscription;
 
   void enableShareReceiving() {
     if (_shareReceiveSubscription == null) {
@@ -28,7 +28,7 @@ abstract class ReceiveShareState<T extends StatefulWidget> extends State<T> {
 
   void disableShareReceiving() {
     if (_shareReceiveSubscription != null) {
-      _shareReceiveSubscription.cancel();
+      _shareReceiveSubscription?.cancel();
       _shareReceiveSubscription = null;
     }
     shareReceiveEnabled = false;

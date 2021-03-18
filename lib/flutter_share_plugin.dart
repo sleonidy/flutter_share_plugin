@@ -13,5 +13,5 @@ class FlutterSharePlugin {
     return version;
   }
 
-  static Future shareImages({String title, String message}) async {}
+  static Future shareImages({required String title, String? message}) async {}
 }
