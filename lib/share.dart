@@ -120,7 +120,6 @@ class Share {
         } else {
           return Share.plainText(text: received[TEXT]);
         }
-        break;
 
       case ShareType.TYPE_IMAGE:
         if (received.containsKey(TITLE)) {

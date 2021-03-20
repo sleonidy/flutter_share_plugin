@@ -127,7 +127,7 @@ class FlutterShareReceiverActivity : FlutterActivity() {
                 val params = HashMap<String, String>()
                 params[TYPE] = type
                 params[IS_MULTIPLE] = "true"
-                for (i in uris.indices) {
+                uris?.indices?.forEach{ i->
                     params[Integer.toString(i)] = uris[i].toString()
                 }
                 eventSink!!.success(params)
